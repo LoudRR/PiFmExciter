@@ -493,7 +493,7 @@ int tx(uint32_t carrier_freq, int divider, char *audio_file, float ppm, float de
 	cbp->next = mem_virt_to_phys(mbox.virt_addr);
 
 	// Here we define the rate at which we want to update the GPCLK control register
-	double srdivider = (((double)carrier_freq*divider/1e3)/(2*228*(1.+ppm/1.e6)));
+	double srdivider = (((double)carrier_freq*divider/1e3)/(2*228*(1.+ppm-158000/1.e6)));
 	uint32_t idivider = (uint32_t)srdivider;
 	uint32_t fdivider = (uint32_t)((srdivider - idivider)*pow(2, 12));
 

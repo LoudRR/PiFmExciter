@@ -59,11 +59,23 @@ int fm_mpx_open(char *filename, size_t len) {
 		}
 
 		int in_samplerate = sfinfo.samplerate;
-		downsample_factor = 228000. / in_samplerate;
+		channels = sfinfo.channels;
+
+		if (in_samplerate != 192000) {
+			fprintf(stderr, "Error: sample rate must be 192000Hz.\n");
+			return -1;
+		}
+
+		if (channels != 1) {
+			fprintf(stderr, "Error: only mono files are supported.\n");
+			return -1;
+		}
+
+
+		downsample_factor = 192000. / in_samplerate;
 
 		printf("Input: %d Hz, upsampling factor: %.2f\n", in_samplerate, downsample_factor);
 
-		channels = sfinfo.channels;
 
 		audio_pos = downsample_factor;
 		audio_buffer = alloc_empty_buffer(length * channels);

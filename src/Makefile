@@ -19,14 +19,11 @@ endif
 
 ifneq ($(TARGET), other)
 
-app: waveforms.o pi_fm_exciter.o fm_mpx.o mailbox.o
-	$(CC) -o pi_fm_exciter waveforms.o mailbox.o pi_fm_exciter.o fm_mpx.o -lm -lsndfile
+app: pi_fm_exciter.o fm_mpx.o mailbox.o
+	$(CC) -o pi_fm_exciter mailbox.o pi_fm_exciter.o fm_mpx.o -lm -lsndfile
 
 endif
 
-
-waveforms.o: waveforms.c waveforms.h
-	$(CC) $(CFLAGS) waveforms.c
 
 mailbox.o: mailbox.c mailbox.h
 	$(CC) $(CFLAGS) mailbox.c
